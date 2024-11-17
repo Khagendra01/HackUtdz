@@ -1,4 +1,5 @@
 from django.db import models
+from pgvector.django import VectorField
 
 class LangchainPgCollection(models.Model):
     name = models.TextField(blank=True, null=True)
