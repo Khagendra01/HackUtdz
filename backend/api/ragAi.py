@@ -28,9 +28,8 @@ def get_finance_response(question, past_convo):
     Instructions:
     1. Analyze the provided context carefully.
     2. Attempt to answer questions or provide assistance using only the information present in the context.
-    3. If the context does not contain relevant information to address the query, you may use your general knowledge to formulate a response.
-    4. Clearly indicate when you are using information from the context versus your own knowledge.
-    5. If you cannot find a suitable answer in the context, past conversation or your own knowledge, politely inform the student and suggest they seek additional resources or clarify their question.
+    3. Clearly indicate when you are using information from the context versus your own knowledge.
+    4. If you cannot find a suitable answer in the context, past conversation or your own knowledge, politely inform the student and suggest they seek additional resources or clarify their question.
 
     Context:
     {docs}
@@ -62,3 +61,4 @@ def get_finance_response(question, past_convo):
         work_cited += cite + '\n'
 
     return response, work_cited
+
