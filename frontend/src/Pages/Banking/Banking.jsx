@@ -1,50 +1,76 @@
-import React, { useEffect, useState } from "react"
-import Navbar from "../../Componenets/Navbar/Navbar"
-import "./Banking.css"
+import React, { useEffect, useRef, useState } from "react";
+import Navbar from "../../Componenets/Navbar/Navbar";
+import "./Banking.css";
 
 export const Banking = () => {
-	const [messages, setMessages] = useState([])
-	const [input, setInput] = useState("")
-	const [inputAtBottom, setInputAtBottom] = useState(false) // Tracks input box position
+	const [messages, setMessages] = useState([]);
+	const [input, setInput] = useState("");
+	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
+	const messagesEndRef = useRef(null);
+
+	const scrollToBottom = () => {
+		messagesEndRef.current?.scrollTo({
+			top: messagesEndRef.current.scrollHeight,
+			behavior: "smooth",
+		});
+	};
+
+	useEffect(() => {
+		scrollToBottom();
+	}, [messages]);
 
 	const handleSendMessage = () => {
 		if (input.trim()) {
-			setMessages((prev) => [...prev, input])
-			setInput("")
-			setInputAtBottom(true) // Move input box to the bottom
+			// Add user message
+			setMessages((prev) => [...prev, { text: input, sender: "user" }]);
+			setInput("");
+			setInputAtBottom(true); // Move input box to the bottom
+
+			const myHeaders = new Headers();
+			myHeaders.append("Content-Type", "application/json");
+
+			const raw = JSON.stringify({
+				user_msg: input,
+				last5: messages
+					.slice(-5) // Get the last 5 messages
+					.map((msg) =>
+						msg.sender === "user" ? `User: ${msg.text}` : `AI: ${msg.text}`
+					) // Format each message
+					.join("\n"), // Join them into a single string with line breaks
+			});
+
+			const requestOptions = {
+				method: "POST",
+				headers: myHeaders,
+				body: raw,
+				redirect: "follow",
+			};
+
+			fetch("http://172.20.10.2:8000/api/askagent/", requestOptions)
+				.then((response) => response.json())
+				.then((result) => {
+					// Ensure ai_msg is present in the response
+					if (result && result.ai_msg) {
+						setMessages((prev) => [
+							...prev,
+							{ text: result.ai_msg, sender: "ai" },
+						]);
+					}
+					console.log(result);
+				})
+				.catch((error) => console.error("Error:", error));
 		}
-		const myHeaders = new Headers()
-		myHeaders.append("Content-Type", "application/json")
-
-		const raw = JSON.stringify({
-			user_msg: input,
-			last5: "",
-		})
-
-		const requestOptions = {
-			method: "POST",
-			headers: myHeaders,
-			body: raw,
-			redirect: "follow",
-		}
-
-		fetch("http://172.20.10.2:8000/api/askagent/", requestOptions)
-			.then((response) => response.json())
-			.then((result) => console.log(result))
-			.catch((error) => console.error(error))
-	}
+	};
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" && input.trim()) {
-			setMessages((prev) => [...prev, input]) // Add new message
-			setInput("") // Clear input
-			setInputAtBottom(true)
+			handleSendMessage();
 		}
-	}
+	};
 
 	const handleButtonClick = (question) => {
-		setInput(question) // Move input box to the top
-	}
+		setInput(question); // Move input box to the top
+	};
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -60,25 +86,25 @@ export const Banking = () => {
 					</p>
 					<hr className="mb-12" />
 					{inputAtBottom && (
-						<div className="flex flex-col-reverse overflow-y-auto h-96 border border-gray-300 rounded-lg p-4">
+						<div
+							className="flex flex-col overflow-y-auto h-96 border border-gray-300 rounded-lg p-4"
+							ref={messagesEndRef}
+						>
 							{messages.map((message, index) => (
 								<div
 									key={index}
-									className="bg-blue-100 p-3 rounded-md shadow-sm mb-4 max-w-lg self-end"
+									className={`p-3 rounded-md shadow-sm mb-4 max-w-lg ${
+										message.sender === "user"
+											? "bg-blue-100 self-end"
+											: "bg-gray-100 self-start"
+									}`}
 								>
-									{message}
+									{message.text}
 								</div>
 							))}
 						</div>
 					)}
 				</div>
-				{!inputAtBottom && (
-					<div>
-						<h1 className="text-center text-3xl font-bold">
-							What would you like to ask about banking?
-						</h1>
-					</div>
-				)}
 				<div
 					className={`${
 						inputAtBottom ? "mt-auto" : "mt-8"
@@ -126,8 +152,6 @@ export const Banking = () => {
 					</div>
 				)}
 			</main>
-
-			{/* Input box dynamically positioned */}
 		</div>
-	)
-}
+	);
+};

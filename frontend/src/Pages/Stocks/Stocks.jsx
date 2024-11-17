@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../../Componenets/Navbar/Navbar";
-import "./Crypto.css";
+import "./Stocks.css";
 
-export const Crypto = () => {
+export const Stocks = () => {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState("");
 	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
@@ -78,12 +78,12 @@ export const Crypto = () => {
 			<main className="flex-1 overflow-auto">
 				<div className="p-8">
 					<h1 className="text-4xl mb-4">
-						Learn <strong>Crypto</strong>
+						Learn <strong>Stocks</strong>
 					</h1>
 					<p className="mb-6">
-						Explore the world of cryptocurrency with insights, trends, and
-						advice to help you navigate digital assets and make informed
-						investment decisions.
+						Discover how owning shares in a company can grow your wealth. Learn
+						about market trends, investment strategies, and how to make informed
+						decisions for a smarter financial future.
 					</p>
 					<hr className="mb-12" />
 					{inputAtBottom && (
@@ -132,25 +132,27 @@ export const Crypto = () => {
 					<div className="w-full h-16 flex justify-center items-center space-x-4">
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() => handleButtonClick("What is crypto?")}
+							onClick={() => handleButtonClick("How do I buy or sell stocks?")}
 						>
-							What is crypto?
+							How do I buy or sell stocks?
 						</button>
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() => handleButtonClick("How is crypto regulated?")}
+							onClick={() =>
+								handleButtonClick("What factors affect stock prices?")
+							}
 						>
-							How is crypto regulated?
+							What factors affect stock prices?
 						</button>
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
 							onClick={() =>
 								handleButtonClick(
-									"What is the difference between crypto and fiat currencies?"
+									"What is a stock market, and how does it operate?"
 								)
 							}
 						>
-							What is the difference between crypto and fiat currencies?
+							What is a stock market, and how does it operate?
 						</button>
 					</div>
 				)}

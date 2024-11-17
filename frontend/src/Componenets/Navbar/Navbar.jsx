@@ -3,10 +3,10 @@ import {
 	AiOutlineSetting,
 	AiOutlineBank,
 	AiOutlineLineChart,
-} from "react-icons/ai"
-import { CiBitcoin } from "react-icons/ci"
-import { IoAlertCircleOutline } from "react-icons/io5"
-import { Link } from "react-router-dom"
+} from "react-icons/ai";
+import { CiBitcoin } from "react-icons/ci";
+import { IoAlertCircleOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
 	const menuItems = [
@@ -14,9 +14,9 @@ export const Navbar = () => {
 		{ title: "Banking", icon: <AiOutlineBank size={24} />, path: "/banking" },
 		{ title: "Crypto", icon: <CiBitcoin size={26} />, path: "/crypto" },
 		{
-			title: "Fraud Detection",
+			title: "Stocks",
 			icon: <IoAlertCircleOutline size={26} />,
-			path: "/frauddetection",
+			path: "/stocks",
 		},
 		{
 			title: "Investment",
@@ -28,7 +28,7 @@ export const Navbar = () => {
 			icon: <AiOutlineSetting size={24} />,
 			path: "/settings",
 		},
-	]
+	];
 
 	return (
 		<div className="fixed left-0 top-0 h-screen z-10">
@@ -54,7 +54,7 @@ export const Navbar = () => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default Navbar
+export default Navbar;
