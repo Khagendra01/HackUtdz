@@ -11,7 +11,7 @@ terraform {
 }
 
 provider "cloudflare" {
-  api_token = "iTPRtg5sPN_sKPepyKYKjfo6DCqdqrY93NFtCuCN"
+  api_token = ""
 }
 
 variable "zone_id" {

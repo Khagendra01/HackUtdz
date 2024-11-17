@@ -56,7 +56,6 @@ def get_finance_response(question, past_convo):
     
     # Create the prompt template
     prompt_template = ChatPromptTemplate.from_template(
-        "Only answer if the question is related to Past conversation, relevant documents."
         "You are a financial advisor. Use the following context to answer the question:\n"
         "{context}\n\n"
         "Question: {question}\n"
@@ -66,7 +65,7 @@ def get_finance_response(question, past_convo):
     try:
         response = agent.run(prompt_template.format(context=context, question=question))
     except Exception as e:
-        response = "Sorrry, I am finance agent and can only answer finance related question."
+        response = "Sorry, I am finance agent and can only answer finance related question."
         citation = []
     
     return response, list(citation)
