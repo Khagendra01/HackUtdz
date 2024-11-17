@@ -47,6 +47,7 @@ def get_finance_response(question, past_convo):
         [retrieval_tool],
         llm,
         agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,
+        handle_parsing_errors=True,
         verbose=True
     )
     
