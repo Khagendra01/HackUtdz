@@ -1,13 +1,15 @@
-import React from "react";
-import { Navbar } from "../../Componenets/Navbar/Navbar";
-import "./Home.css";
-import BitcoinChart from "./graphs/BitcoinChart";
-import EthereumChart from "./graphs/EthereumChart";
-import CommunityBankSentimentIndex from "./graphs/CommunityBankSentimentIndex";
-import MortageRatesChart from "./graphs/MortageRatesChart";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
+import React from "react"
+import { Navbar } from "../../Componenets/Navbar/Navbar"
+import "./Home.css"
+import BitcoinChart from "./graphs/BitcoinChart"
+import EthereumChart from "./graphs/EthereumChart"
+import CommunityBankSentimentIndex from "./graphs/CommunityBankSentimentIndex"
+import MortageRatesChart from "./graphs/MortageRatesChart"
+import HouseAffordabilityChart from "./graphs/HouseAffordabilityChart"
+import EquityChart from "./graphs/EquityChart"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import Slider from "react-slick"
 
 // Slider settings
 const settings = {
@@ -17,15 +19,15 @@ const settings = {
 	slidesToShow: 1,
 	slidesToScroll: 1,
 	autoplay: true, // Enable autoplay
-	autoplaySpeed: 4000, // Auto scroll every 3 seconds (3000ms)
-};
+	autoplaySpeed: 3000, // Auto scroll every 3 seconds (3000ms)
+}
 
 export const Home = () => {
 	return (
 		<div>
 			<Navbar />
 			<main className="homepage">
-				<div className="hero mb-8">
+				<div className="hero mb-4">
 					<h1 className="text-4xl mb-4 ml-4 mt-4">
 						Your Gateway to <strong>Smarter Financial Decisions</strong>
 					</h1>
@@ -34,34 +36,7 @@ export const Home = () => {
 						our AI assistant.
 					</p>
 				</div>
-				<hr className="mb-12" />
-				{/* <div className="ml-4 text-3xl">Navigate to...</div>
-				<div className="flex justify-end items-center w-full h-20 text-lg px-6 mb-6 space-x-24">
-					<a
-						href="#bankingSection"
-						className="border border-white rounded-full px-4 py-3 transition-all hover:underline"
-					>
-						Banking
-					</a>
-					<a
-						href="#cryptoSection"
-						className="border border-white rounded-full px-4 py-3 transition-all hover:underline"
-					>
-						Crypto
-					</a>
-					<a
-						href="#fraudSection"
-						className="border border-white rounded-full px-4 py-3 transition-all hover:underline"
-					>
-						Fraud Detection
-					</a>
-					<a
-						href="#investmentSection"
-						className="border border-white rounded-full px-4 py-3 transition-all hover:underline"
-					>
-						Investments
-					</a>
-				</div> */}
+				<hr className="mb-8	" />
 				<div className="flex flex-col space-y-6">
 					<a id="bankingSection" href="/banking" className="mt-16">
 						<button
@@ -114,7 +89,7 @@ export const Home = () => {
 							type="submit"
 							className="flex justify-center gap-2 items-center mx-auto shadow-xl text-lg bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-emerald-500 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
 						>
-							Explore Fraud Detection
+							Explore Stock
 							<svg
 								className="w-8 h-8 justify-end group-hover:rotate-90 group-hover:bg-gray-50 text-gray-50 ease-linear duration-300 rounded-full border border-gray-700 group-hover:border-none p-2 rotate-45"
 								viewBox="0 0 16 19"
@@ -151,11 +126,11 @@ export const Home = () => {
 						</button>
 					</a>
 					<Slider {...settings}>
-						<BitcoinChart />
-						<EthereumChart />
+						<HouseAffordabilityChart />
+						<EquityChart />
 					</Slider>
 				</div>
 			</main>
 		</div>
-	);
-};
+	)
+}
