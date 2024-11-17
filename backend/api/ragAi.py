@@ -40,7 +40,7 @@ def get_finance_response(question, past_convo):
     )
     
     # Create the language model
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    llm = ChatOpenAI(temperature=0, model_name="gpt-4o")
     
     # Create the agent
     agent = initialize_agent(
