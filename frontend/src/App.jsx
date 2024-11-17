@@ -1,11 +1,17 @@
-import React from "react";
+import React from "react"
 import {
 	BrowserRouter as Router,
 	Routes,
 	Route,
 	Navigate,
-} from "react-router-dom";
-import { Home, Banking } from "./Pages/index";
+} from "react-router-dom"
+import {
+	Home,
+	Banking,
+	Crypto,
+	FraudDetection,
+	Investment,
+} from "./Pages/index"
 
 function App() {
 	return (
@@ -13,9 +19,12 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/banking" element={<Banking />} />
+				<Route path="/crypto" element={<Crypto />} />
+				<Route path="/frauddetection" element={<FraudDetection />} />
+				<Route path="/investment" element={<Investment />} />
 			</Routes>
 		</Router>
-	);
+	)
 }
 
-export default App;
+export default App

@@ -1,15 +1,27 @@
-import { AiOutlineHome, AiOutlineUser, AiOutlineSetting } from "react-icons/ai"
-import { BiMessageSquareDetail } from "react-icons/bi"
+import {
+	AiOutlineHome,
+	AiOutlineSetting,
+	AiOutlineBank,
+	AiOutlineLineChart,
+} from "react-icons/ai"
+import { CiBitcoin } from "react-icons/ci"
+import { IoAlertCircleOutline } from "react-icons/io5"
 import { Link } from "react-router-dom"
 
 export const Navbar = () => {
 	const menuItems = [
 		{ title: "Home", icon: <AiOutlineHome size={24} />, path: "/" },
-		{ title: "Banking", icon: <AiOutlineUser size={24} />, path: "/banking" },
+		{ title: "Banking", icon: <AiOutlineBank size={24} />, path: "/banking" },
+		{ title: "Crypto", icon: <CiBitcoin size={26} />, path: "/crypto" },
 		{
-			title: "Messages",
-			icon: <BiMessageSquareDetail size={24} />,
-			path: "/messages",
+			title: "Fraud Detection",
+			icon: <IoAlertCircleOutline size={26} />,
+			path: "/frauddetection",
+		},
+		{
+			title: "Investment",
+			icon: <AiOutlineLineChart size={24} />,
+			path: "/investment",
 		},
 		{
 			title: "Settings",
