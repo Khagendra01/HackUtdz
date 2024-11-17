@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 import Navbar from "../../Componenets/Navbar/Navbar";
 import "./Banking.css";
-import MortageRatesChart from "./MortageRatesChart";
-import CommunityBankSentimentIndex from "./CommunityBankSentimentIndex";
 
 export const Banking = () => {
 	const [messages, setMessages] = useState([]);
