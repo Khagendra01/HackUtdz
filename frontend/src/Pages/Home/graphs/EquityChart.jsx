@@ -11,12 +11,12 @@ import {
 } from "recharts"
 import Papa from "papaparse"
 
-const EthereumChart = () => {
+const EquityChart = () => {
 	const [data, setData] = useState([])
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch("/Bitcoin.csv")
+			const response = await fetch("/EQUITY.csv")
 			const csvData = await response.text()
 
 			Papa.parse(csvData, {
@@ -25,8 +25,8 @@ const EthereumChart = () => {
 				dynamicTyping: true,
 				complete: (result) => {
 					const formattedData = result.data.map((row) => ({
-						time: row.timestamp,
-						close: parseFloat(row.close),
+						date: row.DATE,
+						equity: row.QPRHLDTPEPEQHOLDINGSUSNO,
 					}))
 					setData(formattedData)
 				},
@@ -37,32 +37,27 @@ const EthereumChart = () => {
 
 	return (
 		<div style={{ textAlign: "center" }}>
-			<h2>Ethereum Price Graph</h2>
+			<h2>Total Private Equity</h2>
 			{Array.isArray(data) && data.length > 0 ? (
 				<ResponsiveContainer className="pb-4" width="95%" height={400}>
 					<LineChart data={data}>
 						<CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
 						<XAxis
-							dataKey="time"
-							label={{
-								value: "time",
-								position: "insideBottom",
-								offset: -5,
-							}}
+							dataKey="date"
+							label={{ value: "Date", position: "insideBottom", offset: -5 }}
 							tickFormatter={(tick) => tick.split("-").slice(1).join("-")} // Show only month and day
 						/>
 						<YAxis
 							label={{
-								value: "close",
+								value: "Total Private Equity",
 								angle: -90,
 								position: "insideLeft",
-								offset: -5,
 							}}
 						/>
 						<Tooltip />
 						<Line
 							type="monotone"
-							dataKey="close"
+							dataKey="equity"
 							stroke="#1a73e8"
 							strokeWidth={2}
 							dot={{ stroke: "#ff5722", strokeWidth: 2 }}
@@ -76,4 +71,4 @@ const EthereumChart = () => {
 	)
 }
 
-export default EthereumChart
+export default EquityChart
