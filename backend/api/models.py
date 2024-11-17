@@ -17,6 +17,7 @@ class LangchainPgEmbedding(models.Model):
     document = models.TextField(blank=True, null=True)
     cmetadata = models.TextField(blank=True, null=True)
     sours = models.CharField(blank=True, null=True, max_length=255) 
+    dtype = models.CharField(blank=True, null=True, max_length=255) 
 
     class Meta:
         db_table = 'langchain_pg_embedding'

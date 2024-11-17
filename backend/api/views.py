@@ -32,6 +32,7 @@ class GenerateEmbedding(APIView):
     def post(self, request):  
         content = request.data.get("content")
         sours = request.data.get("sours")
+        dtype = request.data.get("dtype")
         custom_text_splitter = CustomTextSplitter(chunk_size=800, chunk_overlap=200)
 
         chunks = custom_text_splitter.split_text(content)
@@ -41,7 +42,8 @@ class GenerateEmbedding(APIView):
                         uuid=uuid.uuid4(),
                         document=chunk,
                         embedding=gen_embedding,
-                        sours=sours
+                        sours=sours,
+                        dtype=dtype
                     )
 
         return Response(status=status.HTTP_200_OK)
