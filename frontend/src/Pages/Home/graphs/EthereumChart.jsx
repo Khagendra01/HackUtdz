@@ -47,7 +47,7 @@ const EthereumChart = () => {
 							label={{
 								value: "time",
 								position: "insideBottom",
-								offset: -5,
+								offset: -10,
 							}}
 							tickFormatter={(tick) => tick.split("-").slice(1).join("-")} // Show only month and day
 						/>

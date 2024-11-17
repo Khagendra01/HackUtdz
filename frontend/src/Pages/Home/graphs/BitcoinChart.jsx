@@ -56,7 +56,7 @@ const BitcoinChart = () => {
 								value: "close",
 								angle: -90,
 								position: "insideLeft",
-								offset: -5,
+								offset: -10,
 							}}
 						/>
 						<Tooltip />
