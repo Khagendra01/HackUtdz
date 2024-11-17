@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react"
 import Navbar from "../../Componenets/Navbar/Navbar"
 import "./Banking.css"
-import axios from "axios"
 
 export const Banking = () => {
 	const [messages, setMessages] = useState([])
 	const [input, setInput] = useState("")
-	const [response, setResponse] = useState("")
 	const [inputAtBottom, setInputAtBottom] = useState(false) // Tracks input box position
 
 	const handleSendMessage = () => {
@@ -15,29 +13,25 @@ export const Banking = () => {
 			setInput("")
 			setInputAtBottom(true) // Move input box to the bottom
 		}
-		callAPI()
-	}
+		const myHeaders = new Headers()
+		myHeaders.append("Content-Type", "application/json")
 
-	const callAPI = async () => {
-		try {
-			const response = await fetch("http://172.20.10.2:8000/api/askagent/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					user_msg: input,
-					last5: "",
-				}),
-			})
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`)
-			}
-			data = await response.json()
-			console.log(data)
-		} catch (e) {
-			console.log("error ", e)
+		const raw = JSON.stringify({
+			user_msg: input,
+			last5: "",
+		})
+
+		const requestOptions = {
+			method: "POST",
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow",
 		}
+
+		fetch("http://172.20.10.2:8000/api/askagent/", requestOptions)
+			.then((response) => response.json())
+			.then((result) => console.log(result))
+			.catch((error) => console.error(error))
 	}
 
 	const handleKeyDown = (e) => {
