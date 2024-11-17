@@ -1,0 +1,13 @@
+main {
+    margin-left: 4rem; /* 64px to match the non-expanded sidebar width */
+    padding: 2rem;
+}
+
+.graph-container {
+    width: 80%;
+    max-width: 750px;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
