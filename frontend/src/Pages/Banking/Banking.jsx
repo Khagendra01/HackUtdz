@@ -6,6 +6,7 @@ export const Banking = () => {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState("");
 	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
+	const [citations, setCitations] = useState([]);
 	const messagesEndRef = useRef(null);
 
 	const scrollToBottom = () => {
@@ -53,7 +54,11 @@ export const Banking = () => {
 					if (result && result.ai_msg) {
 						setMessages((prev) => [
 							...prev,
-							{ text: result.ai_msg, sender: "ai" },
+							{
+								text: result.ai_msg,
+								sender: "ai",
+								citations: result.citations || [],
+							},
 						]);
 					}
 					console.log(result);
@@ -100,6 +105,16 @@ export const Banking = () => {
 									}`}
 								>
 									{message.text}
+									{message.citations?.length > 0 && (
+										<div className="mt-2 text-sm text-gray-600">
+											<strong>Citations:</strong>
+											<ul className="list-disc list-inside">
+												{message.citations.map((citation, i) => (
+													<li key={i}>{citation}</li>
+												))}
+											</ul>
+										</div>
+									)}
 								</div>
 							))}
 						</div>
