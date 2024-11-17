@@ -7,6 +7,7 @@ import {
 import { CiBitcoin } from "react-icons/ci";
 import { IoAlertCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import logo from "../Moneymentorlogo.png";
 
 export const Navbar = () => {
 	const menuItems = [
@@ -23,11 +24,6 @@ export const Navbar = () => {
 			icon: <AiOutlineLineChart size={24} />,
 			path: "/investment",
 		},
-		{
-			title: "Settings",
-			icon: <AiOutlineSetting size={24} />,
-			path: "/settings",
-		},
 	];
 
 	return (
@@ -36,6 +32,13 @@ export const Navbar = () => {
 				<div className="p-4">
 					<nav>
 						<ul className="flex flex-col gap-4">
+							<li>
+								<img
+									src={logo}
+									alt="logo"
+									className="w-12 h-12 object-contain"
+								/>
+							</li>
 							{menuItems.map((item, index) => (
 								<li key={index}>
 									<Link
