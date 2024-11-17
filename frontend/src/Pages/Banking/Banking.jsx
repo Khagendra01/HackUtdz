@@ -1,31 +1,56 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../Componenets/Navbar/Navbar";
-import "./Banking.css";
+import React, { useEffect, useState } from "react"
+import Navbar from "../../Componenets/Navbar/Navbar"
+import "./Banking.css"
+import axios from "axios"
 
 export const Banking = () => {
-	const [messages, setMessages] = useState([]);
-	const [input, setInput] = useState("");
-	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
+	const [messages, setMessages] = useState([])
+	const [input, setInput] = useState("")
+	const [response, setResponse] = useState("")
+	const [inputAtBottom, setInputAtBottom] = useState(false) // Tracks input box position
 
 	const handleSendMessage = () => {
 		if (input.trim()) {
-			setMessages((prev) => [...prev, input]);
-			setInput("");
-			setInputAtBottom(true); // Move input box to the bottom
+			setMessages((prev) => [...prev, input])
+			setInput("")
+			setInputAtBottom(true) // Move input box to the bottom
 		}
-	};
+		callAPI()
+	}
+
+	const callAPI = async () => {
+		try {
+			const response = await fetch("http://172.20.10.2:8000/api/askagent/", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					user_msg: input,
+					last5: "",
+				}),
+			})
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`)
+			}
+			data = await response.json()
+			console.log(data)
+		} catch (e) {
+			console.log("error ", e)
+		}
+	}
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" && input.trim()) {
-			setMessages((prev) => [...prev, input]); // Add new message
-			setInput(""); // Clear input
-			setInputAtBottom(true);
+			setMessages((prev) => [...prev, input]) // Add new message
+			setInput("") // Clear input
+			setInputAtBottom(true)
 		}
-	};
+	}
 
 	const handleButtonClick = (question) => {
-		setInput(question); // Move input box to the top
-	};
+		setInput(question) // Move input box to the top
+	}
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -110,5 +135,5 @@ export const Banking = () => {
 
 			{/* Input box dynamically positioned */}
 		</div>
-	);
-};
+	)
+}
