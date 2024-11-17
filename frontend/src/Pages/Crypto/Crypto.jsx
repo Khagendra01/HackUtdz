@@ -53,7 +53,11 @@ export const Crypto = () => {
 					if (result && result.ai_msg) {
 						setMessages((prev) => [
 							...prev,
-							{ text: result.ai_msg, sender: "ai" },
+							{
+								text: result.ai_msg,
+								sender: "ai",
+								citations: result.citation || [],
+							},
 						]);
 					}
 					console.log(result);
@@ -101,6 +105,16 @@ export const Crypto = () => {
 									}`}
 								>
 									{message.text}
+									{message.citations?.length > 0 && (
+										<div className="mt-2 text-sm text-gray-600">
+											<strong>Citations:</strong>
+											<ul className="list-disc list-inside">
+												{message.citations.map((citation, i) => (
+													<li key={i}>{citation}</li>
+												))}
+											</ul>
+										</div>
+									)}
 								</div>
 							))}
 						</div>

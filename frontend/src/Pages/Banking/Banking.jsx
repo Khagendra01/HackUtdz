@@ -57,7 +57,7 @@ export const Banking = () => {
 							{
 								text: result.ai_msg,
 								sender: "ai",
-								citations: result.citations || [],
+								citations: result.citation || [],
 							},
 						]);
 					}
