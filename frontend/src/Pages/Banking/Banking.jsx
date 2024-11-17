@@ -1,31 +1,50 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../Componenets/Navbar/Navbar";
-import "./Banking.css";
+import React, { useEffect, useState } from "react"
+import Navbar from "../../Componenets/Navbar/Navbar"
+import "./Banking.css"
 
 export const Banking = () => {
-	const [messages, setMessages] = useState([]);
-	const [input, setInput] = useState("");
-	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
+	const [messages, setMessages] = useState([])
+	const [input, setInput] = useState("")
+	const [inputAtBottom, setInputAtBottom] = useState(false) // Tracks input box position
 
 	const handleSendMessage = () => {
 		if (input.trim()) {
-			setMessages((prev) => [...prev, input]);
-			setInput("");
-			setInputAtBottom(true); // Move input box to the bottom
+			setMessages((prev) => [...prev, input])
+			setInput("")
+			setInputAtBottom(true) // Move input box to the bottom
 		}
-	};
+		const myHeaders = new Headers()
+		myHeaders.append("Content-Type", "application/json")
+
+		const raw = JSON.stringify({
+			user_msg: input,
+			last5: "",
+		})
+
+		const requestOptions = {
+			method: "POST",
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow",
+		}
+
+		fetch("http://172.20.10.2:8000/api/askagent/", requestOptions)
+			.then((response) => response.json())
+			.then((result) => console.log(result))
+			.catch((error) => console.error(error))
+	}
 
 	const handleKeyDown = (e) => {
 		if (e.key === "Enter" && input.trim()) {
-			setMessages((prev) => [...prev, input]); // Add new message
-			setInput(""); // Clear input
-			setInputAtBottom(true);
+			setMessages((prev) => [...prev, input]) // Add new message
+			setInput("") // Clear input
+			setInputAtBottom(true)
 		}
-	};
+	}
 
 	const handleButtonClick = (question) => {
-		setInput(question); // Move input box to the top
-	};
+		setInput(question) // Move input box to the top
+	}
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -110,5 +129,5 @@ export const Banking = () => {
 
 			{/* Input box dynamically positioned */}
 		</div>
-	);
-};
+	)
+}
