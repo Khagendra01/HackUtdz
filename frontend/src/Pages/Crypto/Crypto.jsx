@@ -5,6 +5,7 @@ import "./Crypto.css";
 export const Crypto = () => {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState("");
+	const [randomQuestions, setRandomQuestions] = useState([]);
 	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
 	const messagesEndRef = useRef(null);
 
@@ -14,6 +15,33 @@ export const Crypto = () => {
 			behavior: "smooth",
 		});
 	};
+
+	const randomizeQuestions = () => {
+		const questions = [
+			"What is the significance of Bitcoin halving, and how does it impact the cryptocurrency market?",
+			"How do interest rate changes by the Federal Reserve influence cryptocurrency prices?",
+			"What are the environmental concerns associated with Bitcoin mining, and how are they being addressed?",
+			"How does political support, such as that from Donald Trump, affect the adoption and regulation of cryptocurrencies?",
+			"What are the potential risks and rewards of investing in cryptocurrencies during an economic recession?",
+			"How do alternative cryptocurrencies like Ether and Dogecoin compare to Bitcoin in terms of market performance and adoption?",
+			"What role do cryptocurrency exchanges, like Coinbase, play in the broader financial market?",
+			"How might future regulatory changes impact the growth and stability of the cryptocurrency market?",
+			"What technological advancements are expected to shape the future of blockchain and cryptocurrencies?",
+			"How do geopolitical events influence the global cryptocurrency market?",
+		];
+		const randomQuestions = [];
+		while (randomQuestions.length < 3) {
+			const randomIndex = Math.floor(Math.random() * questions.length);
+			if (!randomQuestions.includes(questions[randomIndex])) {
+				randomQuestions.push(questions[randomIndex]);
+			}
+		}
+		setRandomQuestions(randomQuestions);
+	};
+
+	useEffect(() => {
+		randomizeQuestions();
+	}, []);
 
 	useEffect(() => {
 		scrollToBottom();
@@ -146,25 +174,21 @@ export const Crypto = () => {
 					<div className="w-full h-16 flex justify-center items-center space-x-4">
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() => handleButtonClick("What is crypto?")}
+							onClick={() => handleButtonClick(`${randomQuestions[0]}`)}
 						>
-							What is crypto?
+							{randomQuestions[0]}
 						</button>
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() => handleButtonClick("How is crypto regulated?")}
+							onClick={() => handleButtonClick(`${randomQuestions[1]}`)}
 						>
-							How is crypto regulated?
+							{randomQuestions[1]}
 						</button>
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() =>
-								handleButtonClick(
-									"What is the difference between crypto and fiat currencies?"
-								)
-							}
+							onClick={() => handleButtonClick(`${randomQuestions[2]}`)}
 						>
-							What is the difference between crypto and fiat currencies?
+							{randomQuestions[2]}
 						</button>
 					</div>
 				)}

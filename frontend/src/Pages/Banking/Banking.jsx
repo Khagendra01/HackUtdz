@@ -4,6 +4,7 @@ import "./Banking.css";
 
 export const Banking = () => {
 	const [messages, setMessages] = useState([]);
+	const [randomQuestions, setRandomQuestions] = useState([]);
 	const [input, setInput] = useState("");
 	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
 	const [citations, setCitations] = useState([]);
@@ -15,6 +16,32 @@ export const Banking = () => {
 			behavior: "smooth",
 		});
 	};
+
+	const randomizeQuestions = () => {
+		const questions = [
+			"What is the primary role of banks in the economy?",
+			"How do banks facilitate the transmission of monetary policy?",
+			"What are the main sources of income for banks?",
+			"How do banks manage the risk of bank runs?",
+			"What regulatory measures are in place to ensure bank safety and soundness?",
+			"How do central banks influence the money supply?",
+			"What types of financial products do banks typically offer?",
+			"How do banks act as intermediaries between savers and borrowers?",
+			"What is the significance of a bank's return on assets?",
+			"How do banks support wealth management and financial planning services?",
+		];
+
+		// Select 3 random questions
+		const randomQuestion = questions
+			.sort(() => 0.5 - Math.random())
+			.slice(0, 3);
+		//save all 3 questions
+		setRandomQuestions(randomQuestion);
+	};
+
+	useEffect(() => {
+		randomizeQuestions();
+	}, []);
 
 	useEffect(() => {
 		scrollToBottom();
@@ -108,7 +135,7 @@ export const Banking = () => {
 									{message.citations?.length > 0 && (
 										<div className="mt-2 text-sm text-gray-600">
 											<strong>Citations:</strong>
-											<ul className="list-disc list-inside">
+											<ul className="list-disc list-inside overflow-auto">
 												{message.citations.map((citation, i) => (
 													<li key={i}>{citation}</li>
 												))}
@@ -146,23 +173,21 @@ export const Banking = () => {
 					<div className="w-full h-16 flex justify-center items-center space-x-4">
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() => handleButtonClick("How do savings accounts work?")}
+							onClick={() => handleButtonClick(`${randomQuestions[0]}`)}
 						>
-							How do savings accounts work?
+							{randomQuestions[0]}
 						</button>
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() => handleButtonClick("What are mutual funds?")}
+							onClick={() => handleButtonClick(`${randomQuestions[1]}`)}
 						>
-							What are mutual funds?
+							{randomQuestions[1]}
 						</button>
 						<button
 							className="rounded-full bg-gray-100 px-4 py-2 border"
-							onClick={() =>
-								handleButtonClick("What are the best ways to save money?")
-							}
+							onClick={() => handleButtonClick(`${randomQuestions[2]}`)}
 						>
-							What are the best ways to save money?
+							{randomQuestions[2]}
 						</button>
 					</div>
 				)}

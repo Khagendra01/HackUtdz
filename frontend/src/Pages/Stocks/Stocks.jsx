@@ -5,6 +5,7 @@ import "./Stocks.css";
 export const Stocks = () => {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState("");
+	const [randomQuestions, setRandomQuestions] = useState([]);
 	const [inputAtBottom, setInputAtBottom] = useState(false); // Tracks input box position
 	const messagesEndRef = useRef(null);
 
@@ -14,6 +15,22 @@ export const Stocks = () => {
 			behavior: "smooth",
 		});
 	};
+
+	const randomizeQuestions = () => {
+		const questions = [];
+		const randomQuestions = [];
+		while (randomQuestions.length < 3) {
+			const randomIndex = Math.floor(Math.random() * questions.length);
+			if (!randomQuestions.includes(questions[randomIndex])) {
+				randomQuestions.push(questions[randomIndex]);
+			}
+		}
+		setRandomQuestions(randomQuestions);
+	};
+
+	useEffect(() => {
+		randomizeQuestions();
+	}, []);
 
 	useEffect(() => {
 		scrollToBottom();
