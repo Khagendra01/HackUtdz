@@ -4,6 +4,8 @@ from .views import ( GenerateEmbedding, Finance_ai )
 urlpatterns = [
 
     path('generate_embedding/', GenerateEmbedding.as_view(), name='generate_embedding'),
-    path('finance_ai/', Finance_ai.as_view(), name='finance_ai'),
+    path('askagent/', Finance_ai.as_view(), name='finance_ai'),
+    
+
     
 ]
